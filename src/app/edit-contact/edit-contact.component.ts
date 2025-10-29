@@ -1,7 +1,7 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactsService } from '../contacts/contacts.service';
 import { addressTypeValues, phoneTypeValues } from '../contacts/contact.model';
 import { restrictedWords } from '../validators/restricted-words-validator.directive';
@@ -13,7 +13,7 @@ import { restrictedWords } from '../validators/restricted-words-validator.direct
 })
 export class EditContactComponent implements OnInit {
   contactForm = this.fb.nonNullable.group({
-    id:'',
+    id: '',
     personal: false,
     firstName: ['', [Validators.required, Validators.minLength(3)]],
     lastName: ['', [Validators.required, Validators.minLength(3)]],
@@ -30,7 +30,7 @@ export class EditContactComponent implements OnInit {
       postalCode: ['', [Validators.required]],
       addressType: '',
     }),
-    notes: ['', restrictedWords(['foo', 'bar'])]
+    notes: ['', restrictedWords(['foo', 'bar'])],
   })
 
   phoneTypes = phoneTypeValues;
@@ -53,6 +53,7 @@ export class EditContactComponent implements OnInit {
       this.contactForm.setValue(contact);
     })
   }
+
   get firstName() {
     return this.contactForm.controls.firstName;
   }
