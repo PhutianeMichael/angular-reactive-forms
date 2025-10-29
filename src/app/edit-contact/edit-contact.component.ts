@@ -1,9 +1,10 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactsService } from '../contacts/contacts.service';
 import { addressTypeValues, phoneTypeValues } from '../contacts/contact.model';
+import { restrictedWords } from '../validators/restricted-words-validator.directive';
 
 @Component({
   imports: [CommonModule, NgOptimizedImage, ReactiveFormsModule],
@@ -12,10 +13,10 @@ import { addressTypeValues, phoneTypeValues } from '../contacts/contact.model';
 })
 export class EditContactComponent implements OnInit {
   contactForm = this.fb.nonNullable.group({
-    id: '',
+    id:'',
     personal: false,
-    firstName: '',
-    lastName: '',
+    firstName: ['', [Validators.required, Validators.minLength(3)]],
+    lastName: ['', [Validators.required, Validators.minLength(3)]],
     dateOfBirth: <Date | null>null,
     favoritesRanking: <number | null>null,
     phone: this.fb.nonNullable.group({
@@ -23,13 +24,13 @@ export class EditContactComponent implements OnInit {
       phoneType: '',
     }),
     address: this.fb.nonNullable.group({
-      streetAddress: '',
-      city: '',
-      state: '',
-      postalCode: '',
+      streetAddress: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      postalCode: ['', [Validators.required]],
       addressType: '',
     }),
-    notes: ''
+    notes: ['', restrictedWords(['foo', 'bar'])]
   })
 
   phoneTypes = phoneTypeValues;
@@ -51,6 +52,17 @@ export class EditContactComponent implements OnInit {
 
       this.contactForm.setValue(contact);
     })
+  }
+  get firstName() {
+    return this.contactForm.controls.firstName;
+  }
+
+  get lastName() {
+    return this.contactForm.controls.lastName;
+  }
+
+  get notes() {
+    return this.contactForm.controls.notes;
   }
 
   saveContact() {
