@@ -1,21 +1,21 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ContactsService } from '../contacts/contacts.service';
 
 @Component({
   imports: [CommonModule, NgOptimizedImage, ReactiveFormsModule],
   templateUrl: './edit-contact.component.html',
-  styleUrls: ['./edit-contact.component.css']
+  styleUrls: ['./edit-contact.component.css'],
 })
 export class EditContactComponent implements OnInit {
   contactForm = this.fb.nonNullable.group({
     id: '',
     firstName: '',
     lastName: '',
-    dateOfBirth: <Date | null> null,
-    favoritesRanking: <number | null> null,
+    dateOfBirth: <Date | null>null,
+    favoritesRanking: <number | null>null,
     phone: this.fb.nonNullable.group({
       phoneNumber: '',
       phoneType: '',
@@ -26,14 +26,15 @@ export class EditContactComponent implements OnInit {
       state: '',
       postalCode: '',
       addressType: '',
-    })
+    }),
   })
 
   constructor(
     private route: ActivatedRoute,
     private contactsService: ContactsService,
     private router: Router,
-    private fb: FormBuilder,) { }
+    private fb: FormBuilder) {
+  }
 
   ngOnInit() {
     const contactId = this.route.snapshot.params['id'];
@@ -49,7 +50,7 @@ export class EditContactComponent implements OnInit {
   saveContact() {
     console.log(this.contactForm.value);
     this.contactsService.saveContact(this.contactForm.getRawValue()).subscribe({
-      next: () => this.router.navigate(['/contacts'])
+      next: () => this.router.navigate(['/contacts']),
     })
   }
 }
