@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ContactsService } from '../contacts/contacts.service';
+import { addressTypeValues, phoneTypeValues } from '../contacts/contact.model';
 
 @Component({
   imports: [CommonModule, NgOptimizedImage, ReactiveFormsModule],
@@ -12,6 +13,7 @@ import { ContactsService } from '../contacts/contacts.service';
 export class EditContactComponent implements OnInit {
   contactForm = this.fb.nonNullable.group({
     id: '',
+    personal: false,
     firstName: '',
     lastName: '',
     dateOfBirth: <Date | null>null,
@@ -27,7 +29,11 @@ export class EditContactComponent implements OnInit {
       postalCode: '',
       addressType: '',
     }),
+    notes: ''
   })
+
+  phoneTypes = phoneTypeValues;
+  addressTypes = addressTypeValues;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,7 +54,6 @@ export class EditContactComponent implements OnInit {
   }
 
   saveContact() {
-    console.log(this.contactForm.value);
     this.contactsService.saveContact(this.contactForm.getRawValue()).subscribe({
       next: () => this.router.navigate(['/contacts']),
     })

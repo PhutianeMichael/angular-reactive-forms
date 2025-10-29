@@ -6,23 +6,30 @@
     <section>
       <nav>Name/Info</nav>
       <div>
-        <input formControlName="firstName" placeholder="First Name" />
-        <input formControlName="lastName" placeholder="Last Name" />
-        <input formControlName="dateOfBirth" placeholder="Date of Birth" />
-        <input formControlName="favoritesRanking" placeholder="Favorites Ranking" />
+        <input formControlName="firstName" placeholder="First Name"/>
+        <input formControlName="lastName" placeholder="Last Name"/>
+        <input formControlName="dateOfBirth" placeholder="Date of Birth"/>
+        <div>
+          <span>Favorites Ranking:</span>
+          <input type="range" min="0" max="5" formControlName="favoritesRanking" placeholder="Favorites Ranking"/>
+          <span>{{ contactForm.controls.favoritesRanking.value }}</span>
+        </div>
+        <div>
+          <input type="checkbox" formControlName="personal"> Personal
+        </div>
       </div>
     </section>
     <section>
       <nav>Phone</nav>
-      <div formGroupName="phone" class="flex-column" >
+      <div formGroupName="phone" class="flex-column">
         <div class="flex-group">
-          <input formControlName="phoneNumber" placeholder="Phone" />
+          <input formControlName="phoneNumber" placeholder="Phone"/>
           <img ngSrc="/assets/plus-grey-blue.png" class="add" alt="plus" height="50" width="50" priority/>
         </div>
         <div class="radio">
-          <input type="radio" formControlName="phoneType" value="mobile"> Mobile
-          <input type="radio" formControlName="phoneType" value="work"> Work
-          <input type="radio" formControlName="phoneType" value="other"> Other
+          @for (phoneType of phoneTypes; track $index) {
+            <input type="radio" formControlName="phoneType" [value]="phoneType.value"> {{ phoneType.title }}
+          }
         </div>
       </div>
     </section>
@@ -31,23 +38,29 @@
       <div>
         <div formGroupName="address" class="address">
           <div class="flex-group">
-            <input placeholder="Address" formControlName="streetAddress" />
+            <input placeholder="Address" formControlName="streetAddress"/>
             <img ngSrc="/assets/plus-grey-blue.png" class="add" height="50" width="50" alt="plus"/>
           </div>
-          <input placeholder="City" formControlName="city" />
-          <input placeholder="State/Region" formControlName="state" />
-          <input placeholder="Zip/Postal Code" formControlName="postalCode" />
-          <select  formControlName="addressType">
-            <option value="home">Home</option>
-            <option value="work">Work</option>
-            <option value="mobile">Other</option>
+          <input placeholder="City" formControlName="city"/>
+          <input placeholder="State/Region" formControlName="state"/>
+          <input placeholder="Zip/Postal Code" formControlName="postalCode"/>
+          <select formControlName="addressType">
+            @for (addressType of addressTypes; track $index) {
+              <option [value]="addressType.value">{{ addressType.title }}</option>
+            }
           </select>
         </div>
       </div>
     </section>
+    <section>
+      <nav>Notes</nav>
+      <div >
+        <textarea placeholder="Notes" rows="5" formControlName="notes"></textarea>
+      </div>
+    </section>
     <div class="buttons">
       <button type="button" class="secondary">Cancel</button>
-      <button type="submit" class="primary" >Save</button>
+      <button type="submit" class="primary">Save</button>
     </div>
   </form>
 
