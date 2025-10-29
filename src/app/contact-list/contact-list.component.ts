@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactsService } from '../contacts/contacts.service';
 import { Contact } from '../contacts/contact.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgOptimizedImage],
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.css']
 })

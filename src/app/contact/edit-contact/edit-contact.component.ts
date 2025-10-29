@@ -2,7 +2,7 @@ import { Component, inject, Signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ContactsService } from '../services/contacts.service';
-import { Address, Contact, Phone } from '../models/contact.model';
+import { Contact } from '../models/contact.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
