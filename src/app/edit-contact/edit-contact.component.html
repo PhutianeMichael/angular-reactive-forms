@@ -39,15 +39,19 @@
         @for (phone of contactForm.controls.phones.controls; let i = $index; track i) {
           <div [formGroupName]="i" class="flex-column">
             <div class="flex-group">
-              <input formControlName="phoneNumber" placeholder="Phone"/>
+              <input formControlName="phoneNumber" placeholder="Phone" [class.error]="phone.controls.phoneNumber.invalid"/>
               <img ngSrc="/assets/plus-grey-blue.png" class="add" alt="plus" height="50" width="50" priority
                    (click)="addPhone()"/>
             </div>
+            @if (phone.controls.phoneNumber.invalid) {
+            <em>Preferred Phone is required</em>
+            }
             <div class="radio">
               @for (phoneType of phoneTypes; track $index) {
                 <input type="radio" formControlName="phoneType" [value]="phoneType.value"> {{ phoneType.title }}
               }
             </div>
+            <span><input type="checkbox" formControlName="preferred"> Preferred</span>
           </div>
         }
       </div>
@@ -55,10 +59,9 @@
     <section>
       <nav>Addresses</nav>
       <div>
-        <div formArrayName="addresses" class="address"
-             [class.error]="contactForm.controls.addresses.invalid && contactForm.controls.addresses.dirty">
+        <div formArrayName="addresses" class="address">
           @for (address of contactForm.controls.addresses.controls; let i = $index; track i) {
-            <div [formGroupName]="i" class="address">
+            <div [formGroupName]="i" class="address" [class.error]="address.invalid && address.dirty">
               <div class="flex-group">
                 <input placeholder="Address" formControlName="streetAddress"/>
                 <img ngSrc="/assets/plus-grey-blue.png" class="add" height="50" width="50" alt="plus"
@@ -73,9 +76,9 @@
                 }
               </select>
             </div>
-          }
-          @if (contactForm.controls.addresses.invalid && contactForm.controls.addresses.dirty) {
-            <em>Incomplete Address</em>
+            @if (address.invalid && address.dirty) {
+              <em>Incomplete Address</em>
+            }
           }
         </div>
       </div>

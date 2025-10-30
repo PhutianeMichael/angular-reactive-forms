@@ -6,15 +6,15 @@ export class InMemoryContactsApi implements InMemoryDbService {
     let contacts: Contact[] = [
       {
         id: '5CehW',
-        icon: '',
+        icon: 'person-10.png',
         personal: false,
         firstName: 'Percival',
         lastName: 'Doodleplumb',
         dateOfBirth: new Date('1994/05/05'),
         favoritesRanking: 0,
         phones: [
-          {phoneNumber: '555-765-4321', phoneType: 'mobile'},
-          {phoneNumber: '555-435-1234', phoneType: 'work'},
+          {phoneNumber: '555-765-4321', phoneType: 'mobile', preferred: false},
+          {phoneNumber: '555-435-1234', phoneType: 'work', preferred: false},
         ],
         addresses: [{
           streetAddress: '777 Whimsy Lane',
@@ -40,7 +40,7 @@ export class InMemoryContactsApi implements InMemoryDbService {
         lastName: 'Flungford',
         dateOfBirth: new Date('1988/10/05'),
         favoritesRanking: 0,
-        phones: [{phoneNumber: '555-877-5678', phoneType: 'mobile'}],
+        phones: [{phoneNumber: '555-877-5678', phoneType: 'mobile', preferred: false}],
         addresses: [{
           streetAddress: '543 Lullaby Lane',
           city: 'Sleepytown',
@@ -52,13 +52,13 @@ export class InMemoryContactsApi implements InMemoryDbService {
       },
       {
         id: '3bNGA',
-        icon: '',
+        icon: 'person-01.png',
         personal: false,
         firstName: 'Wanda',
         lastName: 'Giggleworth',
         dateOfBirth: new Date('1986/11/08'),
         favoritesRanking: 1,
-        phones: [{phoneNumber: '555-123-4567', phoneType: 'mobile'}],
+        phones: [{phoneNumber: '555-123-4567', phoneType: 'mobile', preferred: false}],
         addresses: [{
           streetAddress: '123 Merriment Avenue',
           city: 'Dorado City',
