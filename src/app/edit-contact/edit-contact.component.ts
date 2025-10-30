@@ -22,17 +22,8 @@ export class EditContactComponent implements OnInit {
     lastName: ['', [Validators.required, Validators.minLength(3)]],
     dateOfBirth: <Date | null>null,
     favoritesRanking: <number | null>null,
-    phone: this.fb.nonNullable.group({
-      phoneNumber: '',
-      phoneType: '',
-    }),
-    address: this.fb.nonNullable.group({
-      streetAddress: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      postalCode: ['', [Validators.required]],
-      addressType: '',
-    }),
+    phones: this.fb.array([this.createPhonesFormGroup()]),
+    addresses: this.fb.array([this.createAddressesFormGroup()]),
     notes: ['', restrictedWords(['foo', 'bar'])],
   })
 
@@ -53,7 +44,39 @@ export class EditContactComponent implements OnInit {
     this.contactsService.getContact(contactId).subscribe(contact => {
       if (!contact) return;
 
+      for (let i = 1; i < contact.phones.length; i++) {
+        this.addPhone()
+      }
+
+      for (let i = 1; i < contact.addresses.length; i++) {
+        this.addAddress();
+      }
       this.contactForm.setValue(contact);
+    })
+  }
+
+  addPhone() {
+    this.contactForm.controls.phones.push(this.createPhonesFormGroup());
+  }
+
+  addAddress() {
+    this.contactForm.controls.addresses.push(this.createAddressesFormGroup());
+  }
+
+  createPhonesFormGroup() {
+    return this.fb.nonNullable.group({
+      phoneNumber: '',
+      phoneType: '',
+    })
+  }
+
+  createAddressesFormGroup() {
+    return this.fb.nonNullable.group({
+      streetAddress: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      postalCode: ['', [Validators.required]],
+      addressType: '',
     })
   }
 

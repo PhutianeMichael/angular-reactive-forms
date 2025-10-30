@@ -34,40 +34,50 @@
       </div>
     </section>
     <section>
-      <nav>Phone</nav>
-      <div formGroupName="phone" class="flex-column">
-        <div class="flex-group">
-          <input formControlName="phoneNumber" placeholder="Phone"/>
-          <img ngSrc="/assets/plus-grey-blue.png" class="add" alt="plus" height="50" width="50" priority/>
-        </div>
-        <div class="radio">
-          @for (phoneType of phoneTypes; track $index) {
-            <input type="radio" formControlName="phoneType" [value]="phoneType.value"> {{ phoneType.title }}
-          }
-        </div>
+      <nav>Phones</nav>
+      <div formArrayName="phones">
+        @for (phone of contactForm.controls.phones.controls; let i = $index; track i) {
+          <div [formGroupName]="i" class="flex-column">
+            <div class="flex-group">
+              <input formControlName="phoneNumber" placeholder="Phone"/>
+              <img ngSrc="/assets/plus-grey-blue.png" class="add" alt="plus" height="50" width="50" priority
+                   (click)="addPhone()"/>
+            </div>
+            <div class="radio">
+              @for (phoneType of phoneTypes; track $index) {
+                <input type="radio" formControlName="phoneType" [value]="phoneType.value"> {{ phoneType.title }}
+              }
+            </div>
+          </div>
+        }
       </div>
     </section>
     <section>
-      <nav>Address</nav>
+      <nav>Addresses</nav>
       <div>
-        <div formGroupName="address" class="address"
-             [class.error]="contactForm.controls.address.invalid && contactForm.controls.address.dirty">
-          <div class="flex-group">
-            <input placeholder="Address" formControlName="streetAddress"/>
-            <img ngSrc="/assets/plus-grey-blue.png" class="add" height="50" width="50" alt="plus"/>
-          </div>
-          <input placeholder="City" formControlName="city"/>
-          <input placeholder="State/Region" formControlName="state"/>
-          <input placeholder="Zip/Postal Code" formControlName="postalCode"/>
-          <select formControlName="addressType">
-            @for (addressType of addressTypes; track $index) {
-              <option [value]="addressType.value">{{ addressType.title }}</option>
-            }
-          </select>
+        <div formArrayName="addresses" class="address"
+             [class.error]="contactForm.controls.addresses.invalid && contactForm.controls.addresses.dirty">
+          @for (address of contactForm.controls.addresses.controls; let i = $index; track i) {
+            <div [formGroupName]="i" class="address">
+              <div class="flex-group">
+                <input placeholder="Address" formControlName="streetAddress"/>
+                <img ngSrc="/assets/plus-grey-blue.png" class="add" height="50" width="50" alt="plus"
+                     (click)="addAddress()"/>
+              </div>
+              <input placeholder="City" formControlName="city"/>
+              <input placeholder="State/Region" formControlName="state"/>
+              <input placeholder="Zip/Postal Code" formControlName="postalCode"/>
+              <select formControlName="addressType">
+                @for (addressType of addressTypes; track $index) {
+                  <option [value]="addressType.value">{{ addressType.title }}</option>
+                }
+              </select>
+            </div>
+          }
+          @if (contactForm.controls.addresses.invalid && contactForm.controls.addresses.dirty) {
+            <em>Incomplete Address</em>
+          }
         </div>
-        @if (contactForm.controls.address.invalid && contactForm.controls.address.dirty) {
-          <em>Incomplete Address</em>
-        }
       </div>
     </section>
     <section>
