@@ -39,12 +39,13 @@
         @for (phone of contactForm.controls.phones.controls; let i = $index; track i) {
           <div [formGroupName]="i" class="flex-column">
             <div class="flex-group">
-              <input formControlName="phoneNumber" placeholder="Phone" [class.error]="phone.controls.phoneNumber.invalid"/>
+              <input formControlName="phoneNumber" placeholder="Phone"
+                     [class.error]="phone.controls.phoneNumber.invalid"/>
               <img ngSrc="/assets/plus-grey-blue.png" class="add" alt="plus" height="50" width="50" priority
                    (click)="addPhone()"/>
             </div>
             @if (phone.controls.phoneNumber.invalid) {
-            <em>Preferred Phone is required</em>
+              <em>Preferred Phone is required</em>
             }
             <div class="radio">
               @for (phoneType of phoneTypes; track $index) {
@@ -93,7 +94,7 @@
       </div>
     </section>
     <div class="buttons">
-      <button type="button" class="secondary">Cancel</button>
+      <button type="button" (click)="cancel()" class="secondary">Cancel</button>
       <button type="submit" class="primary" [disabled]="contactForm.invalid">Save</button>
     </div>
   </form>
