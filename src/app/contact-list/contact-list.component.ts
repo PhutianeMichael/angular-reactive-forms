@@ -7,12 +7,13 @@ import { RouterModule } from '@angular/router';
 @Component({
   imports: [CommonModule, RouterModule, NgOptimizedImage],
   templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css']
+  styleUrls: ['./contact-list.component.css'],
 })
 export class ContactListComponent implements OnInit {
   contacts: Contact[] = [];
 
-  constructor(private contactsService: ContactsService) { }
+  constructor(private contactsService: ContactsService) {
+  }
 
   ngOnInit() {
     this.contactsService.getAllContacts().subscribe(contacts => this.contacts = contacts);

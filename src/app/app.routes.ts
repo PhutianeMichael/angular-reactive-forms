@@ -6,17 +6,17 @@ export const routes: Routes = [
   {
     path: 'contacts',
     component: ContactListComponent,
-    title: 'Contacts'
+    title: 'Contacts',
   },
   {
     path: 'contacts/edit/:id',
     component: EditContactComponent,
-    title: 'Contacts - Edit'
+    title: 'Contacts - Edit',
   },
   {
     path: 'contacts/edit',
     component: EditContactComponent,
-    title: 'Contacts - Edit'
+    title: 'Contacts - Edit',
   },
-  { path: '', redirectTo: '/contacts', pathMatch: 'full' },
+  {path: '', redirectTo: '/contacts', pathMatch: 'full'},
 ];

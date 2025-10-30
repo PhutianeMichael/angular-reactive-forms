@@ -1,6 +1,5 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
-
 export function restrictedWords(words: string[]) {
   return (control: AbstractControl): ValidationErrors | null => {
     const invalidWords = words

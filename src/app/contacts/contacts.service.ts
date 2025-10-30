@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Contact } from './contact.model';
 import { nanoid } from 'nanoid'
 
@@ -8,13 +8,14 @@ import { nanoid } from 'nanoid'
   providedIn: 'root',
 })
 export class ContactsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getContact(id: string): Observable<Contact | undefined> {
     return this.http.get<Contact>(`api/contacts/${id}`)
       .pipe(map(c => {
         const dob = c.dateOfBirth ? new Date(c.dateOfBirth) : null;
-        return { ...c, dateOfBirth: dob }
+        return {...c, dateOfBirth: dob}
       }));
   }
 
@@ -23,13 +24,12 @@ export class ContactsService {
   }
 
   saveContact(contact: Partial<Contact>): Observable<Contact> {
-    const headers = { headers: { 'Content-Type': 'application/json' } };
+    const headers = {headers: {'Content-Type': 'application/json'}};
 
     if (!contact.id || contact.id === '') {
-      let newContact: Partial<Contact> = { ...contact, id: nanoid(5) };
+      let newContact: Partial<Contact> = {...contact, id: nanoid(5)};
       return this.http.post<Contact>('api/contacts/', newContact, headers)
-    }
-    else
+    } else
       return this.http.put<Contact>('api/contacts/', contact, headers)
   }
 }

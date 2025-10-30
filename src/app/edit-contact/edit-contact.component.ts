@@ -5,15 +5,18 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactsService } from '../contacts/contacts.service';
 import { addressTypeValues, phoneTypeValues } from '../contacts/contact.model';
 import { restrictedWords } from '../validators/restricted-words-validator.directive';
+import { DateValueAccessorDirective } from '../date-value-accessor/date-value-accessor.directive';
+import { ProfileIconSelectorComponent } from '../profile-icon-selector/profile-icon-selector.component';
 
 @Component({
-  imports: [CommonModule, NgOptimizedImage, ReactiveFormsModule],
+  imports: [CommonModule, NgOptimizedImage, ReactiveFormsModule, DateValueAccessorDirective, ProfileIconSelectorComponent],
   templateUrl: './edit-contact.component.html',
   styleUrls: ['./edit-contact.component.css'],
 })
 export class EditContactComponent implements OnInit {
   contactForm = this.fb.nonNullable.group({
     id: '',
+    icon: '',
     personal: false,
     firstName: ['', [Validators.required, Validators.minLength(3)]],
     lastName: ['', [Validators.required, Validators.minLength(3)]],

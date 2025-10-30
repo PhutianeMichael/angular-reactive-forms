@@ -10,6 +10,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-    importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, { delay: 0 }))
-  ]
+    importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(InMemoryContactsApi, {delay: 0})),
+  ],
 };

@@ -8,7 +8,13 @@
   "files": [
     "src/main.ts"
   ],
+  // Include all application TypeScript files so newly added files are compiled
   "include": [
-    "src/**/*.d.ts"
+    "src/**/*.ts"
+  ],
+  // Exclude test files and the test entry so they are not bundled into the app
+  "exclude": [
+    "src/test.ts",
+    "src/**/*.spec.ts"
   ]
 }
